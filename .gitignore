@@ -3,7 +3,6 @@
 *.orig
 *.rej
 *.egg-info
-dist
 *.db
 *.log
 *.mo
@@ -16,8 +15,8 @@ dist
 .coverage
 .eggs
 *.swp
-build
-dist
+/build
+/dist
 htmlcov
 nbproject
-
+/doc/_build

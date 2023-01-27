@@ -11,5 +11,5 @@
 
 tests:
   script:
-    - pip3 install flake8
-    - flake8 nagare
+    - pip3 install ruff
+    - ruff src

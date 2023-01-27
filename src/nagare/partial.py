@@ -9,9 +9,9 @@
 
 """Serializable partial functions"""
 
+import pickle
 import sys
 import types
-import pickle
 
 try:
     import copy_reg
@@ -71,9 +71,12 @@ def max_number_of_args(nb):
       - ``nb`` - max number of positional parameters passed to ``f``. Other
                  positional parameters will be passed as the ``args`` tuple
     """
+
     def _(f):
         return lambda *args, **kw: f(*args[:nb], args=args[nb:], **kw)
+
     return _
+
 
 # -----------------------------------------------------------------------------
 
@@ -81,6 +84,7 @@ def max_number_of_args(nb):
 class _Partial(object):
     def __init__(self, _f, *args, **kw):
         """Callable with predefined parameters
+
         A partial object when called will behave like ``_f`` called with the
         positional arguments ``args`` and keyword arguments ``kw``
         Like the standard ``functools.partial()`` but Serializable.
@@ -103,7 +107,7 @@ class _Partial(object):
           - ``args`` -- parameters added _after_ ``self.args``
           - ``kw`` -- parameters that can override ``self.kw``
 
-         Return:
+        Return:
            - return of the wrapper function
         """
         args = self.args + args
@@ -112,16 +116,17 @@ class _Partial(object):
         return self.f(*args, **kw)
 
 
-def Partial(__f, *args, **kw):
+def Partial(__f, *args, **kw):  # noqa: N802
     """Don't double wrap a ``_Partial()`` object if not needed"""
     return _Partial(__f, *args, **kw) if (not isinstance(__f, _Partial) or args or kw) else __f
+
 
 # -----------------------------------------------------------------------------
 
 
 class Decorator(object):
-    """Use a ``partial()`` to decorate a function
-    """
+    """Use a ``partial()`` to decorate a function"""
+
     def __init__(self, f, new_f, *args, **kw):
         """Decorate a function or a method
 
@@ -130,7 +135,6 @@ class Decorator(object):
           - ``new_f`` -- function that will decorate ``f``
           - ``args``, ``kw`` -- ``new_f`` parameters
         """
-
         # Hack:
         #  - change the name of ``f``
         #  - attach ``f`` to the global scope of its module
