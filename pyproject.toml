@@ -1,5 +1,5 @@
 # =-
-# (C)opyright Net-ng 2023
+# (C)opyright Net-ng 2008-2024
 #
 # This is Net-ng proprietary source code
 # Any reproduction modification or use without prior written
@@ -31,10 +31,8 @@ dev = [
     'sphinx',
     'sphinx_rtd_theme',
     'pre-commit',
-    'black',
     'ruff',
     'pytest',
-    'build',
     'twine'
 ]
 
@@ -44,30 +42,26 @@ Documentation = 'https://nagare.org/doc'
 Source = 'https://github.com/nagareproject/partial'
 Tracker = 'https://github.com/nagareproject/partial/issues'
 
-[tool.distutils.bdist_wheel]
-universal = true
-
-[tool.black]
-line-length = 120
-target-version = ['py38']
-skip-string-normalization = true
-
 [tool.ruff]
 select = ['ALL']
-ignore = ['ANN', 'D102', 'D104', 'D402', 'D415', 'UP', 'TRY']
+ignore = ['ANN', 'COM812', 'D102', 'D104', 'D402', 'D415', 'UP', 'TRY', 'ISC001']
 line-length = 120
 src = ['src']
 
+[tool.ruff.per-file-ignores]
+'__init__.py' = ['F401']
+
 [tool.ruff.flake8-quotes]
 inline-quotes = 'single'
-multiline-quotes = 'single'
 
 [tool.ruff.pydocstyle]
 convention = 'google'
 
 [tool.ruff.isort]
-known-third-party = ['nagare']
-force-sort-within-sections = true
+length-sort = true
+
+[tool.ruff.format]
+quote-style = 'single'
 
 [tool.pytest.ini_options]
 testpaths = ['tests']

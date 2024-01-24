@@ -1,5 +1,5 @@
 # --
-# Copyright (c) 2008-2023 Net-ng.
+# Copyright (c) 2008-2024 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -9,9 +9,9 @@
 
 """Serializable partial functions"""
 
-import pickle
 import sys
 import types
+import pickle
 
 try:
     import copy_reg
@@ -54,7 +54,7 @@ try:
             In:
             - ``f`` -- function to pickle
             """
-            msg = "Can't pickle %r, file \"%s\", line %d" % (f, f.func_code.co_filename, f.func_code.co_firstlineno)
+            msg = 'Can\'t pickle %r, file "%s", line %d' % (f, f.func_code.co_filename, f.func_code.co_firstlineno)
             raise pickle.PicklingError(msg)
 
         copy_reg.pickle(types.FunctionType, pickle_function)
@@ -135,7 +135,7 @@ class Decorator(object):
           - ``new_f`` -- function that will decorate ``f``
           - ``args``, ``kw`` -- ``new_f`` parameters
         """
-        # Hack:
+        # Trick:
         #  - change the name of ``f``
         #  - attach ``f`` to the global scope of its module
         #    (needed to be able to serialize it)
