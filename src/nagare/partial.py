@@ -111,7 +111,7 @@ class _Partial:
            - return of the wrapper function
         """
         args = self.args + args
-        kw = self.kw | kw
+        kw = dict(self.kw, **kw)
 
         return self.f(*args, **kw)
 
