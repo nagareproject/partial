@@ -81,7 +81,7 @@ def max_number_of_args(nb):
 # -----------------------------------------------------------------------------
 
 
-class _Partial(object):
+class _Partial:
     def __init__(self, _f, *args, **kw):
         """Callable with predefined parameters
 
@@ -111,12 +111,12 @@ class _Partial(object):
            - return of the wrapper function
         """
         args = self.args + args
-        kw = dict(self.kw, **kw)
+        kw = self.kw | kw
 
         return self.f(*args, **kw)
 
 
-def Partial(__f, *args, **kw):  # noqa: N802
+def Partial(__f, *args, **kw):  # noqa: N802, PYI063
     """Don't double wrap a ``_Partial()`` object if not needed"""
     return _Partial(__f, *args, **kw) if (not isinstance(__f, _Partial) or args or kw) else __f
 
@@ -124,7 +124,7 @@ def Partial(__f, *args, **kw):  # noqa: N802
 # -----------------------------------------------------------------------------
 
 
-class Decorator(object):
+class Decorator:
     """Use a ``partial()`` to decorate a function"""
 
     def __init__(self, f, new_f, *args, **kw):
